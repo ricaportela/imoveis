@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load moneyformat %}
+
+{% block meta_title %}Simulador de Financiamento de Imóvel por prestação{% endblock meta_title %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'simulators:list' %}">Simuladores</a></li>
+    <li class="active">Por renda</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-center">Simulador de Financiamento por Prestação</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="page-simulator">
+                <form action="" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    {% include 'utils/form_snippet.html' %}
+                    <div class="row">
+                        <div class="col-md-offset-4">
+                            <input type="submit" class="btn btn-primary" value="Efetuar simulação" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if simulator %}
+        <hr />
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Resultado da simulação</h3>
+            </div>
+        </div>
+        {% if installment %}
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">Para uma prestação de <strong>{{ searched|money_format }}</strong>, você precisa de uma renda
+        de <strong>{{ installment.price|money_format }}</strong></p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-center"><strong>PRICE</strong></p>
+                <dl class="dl-horizontal">
+                    <dt>Subsídio</dt>
+                    <dd>{{ simulator.subsidy|money_format }}</dd>
+
+                    <dt>Valor financiável</dt>
+                    <dd>{{ simulator.price.funding|money_format }}</dd>
+
+                    <dt>Quantidade</dt>
+                    <dd>{{ simulator.payments }} parcelas</dd>
+
+                    <dt>1º parcela</dt>
+                    <dd>{{ simulator.price.first_payment|money_format }}</dd>
+
+                    <dt>Última parcela</dt>
+                    <dd>R{{ simulator.price.last_payment|money_format }}</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <p class="text-center"><strong>SAC</strong></p>
+                <dl class="dl-horizontal">
+                    <dt>Subsídio</dt>
+                    <dd>{{ simulator.subsidy|money_format }}</dd>
+
+                    <dt>Valor financiável</dt>
+                    <dd>{{ simulator.sac.funding|money_format }}</dd>
+
+                    <dt>Quantidade</dt>
+                    <dd>{{ simulator.payments }} parcelas</dd>
+
+                    <dt>1º parcela</dt>
+                    <dd>{{ simulator.sac.first_payment|money_format }}</dd>
+
+                    <dt>Última parcela</dt>
+                    <dd>R{{ simulator.sac.last_payment|money_format }}</dd>
+                </dl>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

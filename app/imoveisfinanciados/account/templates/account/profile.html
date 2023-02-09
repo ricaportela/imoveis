@@ -1,0 +1,59 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'accounts:auth_profile' %}">Meus dados</a></li>
+    <li class="active">Editar perfil</li>
+{% endblock %}
+
+{% block content %}
+    <div class="animated fadeInDown" style="margin-top: 1em;">
+
+        {% if form.errors %}
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        <strong>Ops... há algo errado:</strong>
+                        Por favor, corrija o{{ form.errors|pluralize }} erro{{ form.errors|pluralize }} abaixo.
+                    </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title text-center">Perfil</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p>Deseja alterar seus dados básicos de cadastro? Atualize nos campos abaixo e clique em salvar..</p>
+                        <form class="m-t" role="form" action="" method="post">
+                            {% csrf_token %}
+                            {% include 'utils/form_snippet.html' %}
+                            <div class="form-group">
+                                <div class="col-sm-offset-4 col-md-8">
+                                    <button type="submit" class="btn btn-primary block full-width m-b">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <p class="text-muted text-center">
+                            <small>Quero alterar minha senha</small>
+                        </p>
+                        <a class="btn btn-sm btn-warning btn-block" href="{% url 'accounts:auth_password_change' %}">Alterar senha</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <!-- Field masks -->
+    <script src="{% static 'js/account.masks.js' %}"></script>
+{% endblock js %}

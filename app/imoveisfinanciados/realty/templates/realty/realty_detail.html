@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% load formcheckbox %}
+
+{% block stylesheets %}
+    <link type="text/css" rel="stylesheet" href="{% static 'js/plugins/lightslider/css/lightslider.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'js/plugins/lightgallery/css/lightGallery.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Imovel_titulo">
+
+                <div class="titulo">
+
+                    <h1>{{ object.title }}</h1>
+                    <p class="data">Inserido {{ object.created|naturaltime }}</p>
+
+                </div>
+
+                <div class="preco">
+
+                    <div class="seta"></div>
+                    <div class="box-preco">
+                        <span>R${{ object.value }}</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <ul id="photo-gallery">
+                {% if object.main_image %}
+                <li data-thumb="{{ object.main_image.url }}" data-src="{{ object.main_image.url }}">
+                    <img src="{{ object.main_image.url }}" width="600" height="350" />
+                </li>
+                {% endif %}
+                {% for image in object.photos.all %}
+                <li data-thumb="{{ image.image.url }}" data-src="{{ image.image.url }}">
+                    <img src="{{ image.image.url }}" width="600" height="350" />
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="well" id="realty-description">
+                <p>{{ object.description }}</p>
+            </div>
+        </div>
+        <div class="col-md-5" id="Imovel-informacoes">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="dados">
+                        <div class="panel panel-success" id="realty-panel-details">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Detalhes do imóvel</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h4>{{ object.city }} - {{ object.state  }}</h4>
+                            <div class="col-md-6">
+                                <dl class="realty-details">
+                                    <dt>Tipo</dt>
+                                    <dd>{{ object.get_type_display }}</dd>
+                                    <dt>Área útil</dt>
+                                    <dd>{{ object.size }} m<sup>2</sup></dd>
+                                    <dt>Quartos</dt>
+                                    <dd>{{ object.bedroom }} ({{ object.bedroom|apnumber }})</dd>
+                                    <dt>Banheiros</dt>
+                                    <dd>{{ object.bathroom }} ({{ object.bathroom|apnumber }})</dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="realty-details">
+                                    <dt>Cadastro</dt>
+                                    <dd>{{ object.created|date:"d/m/Y" }}</dd>
+                                    <dt>Modificado</dt>
+                                    <dd><dd>{{ object.modified|naturaltime }}</dd>
+                                    <dt>Contato</dt>
+                                    <dd id="phone-number">{{ object.user.phone|truncatechars:13 }} <a href="#" id="view_user_number">ver número</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if object.local_ad %}
+                    <div class="sidebar-ad">
+                        <a href="{{ object.local_ad.banner.url }}" target="_blank" title="{{ object.local_ad.title }}">
+                            <img src="{{ object.local_ad.banner.image.url }}" alt="{{ object.local_ad.banner.title }}" />
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    <div class="dados-contato">
+
+                        <div class="usuario">
+                                <span>{{ object.user.get_full_name }}</span>
+                          </div>
+
+                        <div class="formulario">
+
+                            <form action="" method="post" class="form-horizontal">
+                                {% csrf_token %}
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        {{ form.non_field_errors.as_text }}
+                                    </div>
+                                {% endif %}
+
+                                {% for hidden in form.hidden_fields %}
+                                    {{ hidden }}
+                                {% endfor %}
+
+                                {% for field in form.visible_fields %}
+                                    <div class="form-group {% if field.errors %}has-error{% endif %} campo">
+                                        {% if field.field.widget|is_checkbox %}
+                                            {{ field }}
+                                            <label class="control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                        {% else %}
+                                            <label class="sr-only" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                        {% endif %}
+                                        {% if field.errors %}
+                                            <div class="erro">
+                                                <div class="text-danger" role="alert">
+                                                    {{ field.errors.as_text }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                {% endfor %}
+                                <div class="botao">
+                                    <input type="submit" value="Enviar mensagem">
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- Field masks -->
+    <script src="{% static 'js/account.masks.js' %}"></script>
+    <script src="{% static 'js/getusernumber.js' %}"></script>
+
+    <!-- Gallery -->
+    <script src="{% static 'js/plugins/lightslider/js/lightslider.js' %}"></script>
+    <script src="{% static 'js/plugins/lightgallery/js/lightGallery.min.js' %}"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#photo-gallery").lightSlider({
+                gallery: true,
+                item: 1,
+                loop: true,
+                thumbItem: 4,
+                slideMargin: 0,
+                enableDrag: false,
+                currentPagerPosition: 'left',
+                onSliderLoad: function(el) {
+                    el.lightGallery({
+                        selector: '#photo-gallery .lslide'
+                    });
+                }
+            });
+            $("#view_user_number").click(function(e) {
+                e.preventDefault();
+                getNumber('{{ object.pk }}', '{{ object.state.abbr|lower }}');
+            });
+        });
+    </script>
+{% endblock %}

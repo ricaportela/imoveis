@@ -1,0 +1,59 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'catalog:list' %}">Catálogo</a></li>
+    <li class="active">Checkout</li>
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Pagamento</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <table class="table table-striped table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Item</th>
+                                    <th>Período</th>
+                                    <th>Início</th>
+                                    <th>Qtd.</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {% if object.logo %}
+                                            <img src="{{ object.logo.url }}"
+                                                 alt="{{ object.name }}" width="32" height="32"/>
+                                        {% else %}
+                                            <img src="{% static 'images/default-healty-image.jpg' %}"
+                                                 alt="{{ object.name }}" width="60" height="60"/>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ object.name }}</td>
+                                    <td>Mensal</td>
+                                    <td>{% now "d/m/Y" %}</td>
+                                    <td>1</td>
+                                    <td>{{ object.type.price }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="{% url 'catalog:payment' %}" class="btn btn-primary">Efetuar pagamento</a>
+                        <a href="{% url 'catalog:user_list' %}" class="btn btn-default">Cancelar</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

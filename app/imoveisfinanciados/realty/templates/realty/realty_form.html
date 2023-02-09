@@ -1,0 +1,140 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'realty:user_realties' user_state %}">Imóveis</a></li>
+    {% if object %}
+        <li class="active">Editar imóvel</li>
+    {% else %}
+        <li class="active">Cadastrar imóvel</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{% if object %}Editar{% else %}Cadastrar{% endif %} imóvel <small>É grátis! e sempre será!</small></h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <form action="" method="post" class="form-horizontal labels-left" enctype="multipart/form-data" id="update-realties">
+                            {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors.as_text }}
+                            </div>
+                        {% endif %}
+
+                        {% for field in form %}
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                {% if field.errors %}
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <div class="text-danger" role="alert">
+                                        {{ field.errors.as_text }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <div class="col-sm-6">
+                                    {{ field }}
+                                    <span class="help-block m-b-none">{{ field.help_text }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                        <div class="row">
+                            {% for formset in inlines %}
+                                <div id="accordion" class="panel-group">
+                                    <div class="panel">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a name="photos"></a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#photos">
+                                                        <i class="fa fa-camera"></i>
+                                                        Fotos
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="photos" class="panel-collapse collapse in col-md-8">
+                                                <div class="panel-body">
+                                                    <table class="table table-bordered table-striped">
+                                                    {% for form in formset %}
+                                                        {% if forloop.first %}
+                                                            <thead>
+                                                                {% for field in form.visible_fields %}
+                                                                    <th>{{ field.label }}</th>
+                                                                {% endfor %}
+                                                            </thead>
+                                                            <tbody>
+                                                        {% endif %}
+
+                                                        <tr class="{% cycle 'odd' 'even' %}">
+                                                            {% for field in form.visible_fields %}
+                                                                <td>
+                                                                    {% if forloop.first %}
+                                                                        {% for hidden in form.hidden_fields %}
+                                                                            {{ hidden }}
+                                                                        {% endfor %}
+                                                                    {% endif %}
+
+                                                                    {{ field.errors.as_ul }}
+                                                                    {{ field }}
+                                                                </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                        {% if forloop.last %}
+                                                            </tbody>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                               {{ formset.management_form }}
+                               <div class="formset-prefix" style="display:none" prefix="{{ formset.prefix }}"></div>
+                            {% endfor %}
+                        </div>
+                            <div class="row" style="text-align: right;">
+                                <div class="col-md-8">
+                                    <input type="submit" class="btn btn-primary" value="Salvar" />
+                                    <a href="{% url 'realty:user_realties' user_state %}" class="btn btn-white">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'dashboard/js/jquery.formset.js' %}"></script>
+    <script src="{% static 'dashboard/js/updatecitiesdashboard.js' %}"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var realties = $("#realties");
+        realties.addClass("active");
+        realties.find("ul").addClass("in");
+        $(".realty-register").addClass("active");
+        $("#id_value").mask('000.000.000.000.000,00', {reverse: true});
+
+        var prefix = $(".formset-prefix").attr('prefix');
+        $("#update-realties").find("tbody tr").formset({
+            prefix: prefix,
+            addText: "Adicionar outro",
+            deleteText: "Remover"
+        });
+    });
+    </script>
+{% endblock %}
+
+

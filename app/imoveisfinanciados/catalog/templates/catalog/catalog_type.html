@@ -1,0 +1,59 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'catalog:user_list' %}">Catálogo</a></li>
+    <li class="active">Escolha o tipo</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInUp">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Catálogo</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h2>Escolha o tipo</h2>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <a href="{% url 'catalog:imobiliaria_add' %}" title="Imobiliária">
+                                    <img src="{% static 'img/imobiliaria.jpg' %}"
+                                         alt="Imobiliária"/>
+                                </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'catalog:correspondente_add' %}" title="Correspondente Bancário">
+                                <img src="{% static 'img/correspondente.jpg' %}"
+                                     alt="Correspondente Bancário"/>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{% url 'catalog:incorporadora_add' %}" title="Incorporadora">
+                                <img src="{% static 'img/incorporadora.jpg' %}"
+                                     alt="Incorporadora"/>
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#catalogo").addClass("active");
+        $("#catalogo ul").addClass("in");
+        $(".catalog-add").addClass("active");
+    });
+    </script>
+
+{% endblock %}

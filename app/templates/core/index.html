@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+    <link href="{% static 'css/brazil-map.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Seja bem-vindo.</h2>
+            <ol>
+                <li>Escolha seu estado</li>
+                <li>Encontre seu im&oacute;vel.</li>
+                <li>Entre em contato.</li>
+            </ol>
+            <h3>Desejamos a voc&ecirc; um bom neg&oacute;cio!</h3>
+        </div>
+        <div class="col-md-8">
+            <ul id="map">
+                <li id="crs" estado="rs"><a href="{% url 'realty:list' 'rs' %}" id="rs" title="RS"><img src="{% static 'img/null.gif' %}" alt="RS" /></a></li>
+                <li id="csc" estado="sc"><a href="{% url 'realty:list' 'sc' %}" id="sc" title="SC"><img src="{% static 'img/null.gif' %}" alt="SC" /></a></li>
+                <li id="cpr" estado="pr"><a href="{% url 'realty:list' 'pr' %}" id="pr" title="PR"><img src="{% static 'img/null.gif' %}" alt="PR" /></a></li>
+                <li id="csp" estado="sp"><a href="{% url 'realty:list' 'sp' %}" id="sp" title="SP"><img src="{% static 'img/null.gif' %}" alt="SP" /></a></li>
+                <li id="cms" estado="ms"><a href="{% url 'realty:list' 'ms' %}" id="ms" title="MS"><img src="{% static 'img/null.gif' %}" alt="MS" /></a></li>
+                <li id="crj" estado="rj"><a href="{% url 'realty:list' 'rj' %}" id="rj" title="RJ"><img src="{% static 'img/null.gif' %}" alt="RJ" /></a></li>
+                <li id="ces" estado="es"><a href="{% url 'realty:list' 'es' %}" id="es" title="ES"><img src="{% static 'img/null.gif' %}" alt="ES" /></a></li>
+                <li id="cmg" estado="mg"><a href="{% url 'realty:list' 'mg' %}" id="mg" title="MG"><img src="{% static 'img/null.gif' %}" alt="MG" /></a></li>
+                <li id="cgo" estado="go"><a href="{% url 'realty:list' 'go' %}" id="go" title="GO"><img src="{% static 'img/null.gif' %}" alt="GO" /></a></li>
+                <li id="cdf" estado="df"><a href="{% url 'realty:list' 'df' %}" id="df" title="DF"><img src="{% static 'img/null.gif' %}" alt="DF" /></a></li>
+                <li id="cba" estado="ba"><a href="{% url 'realty:list' 'ba' %}" id="ba" title="BA"><img src="{% static 'img/null.gif' %}" alt="BA" /></a></li>
+                <li id="cmt" estado="mt"><a href="{% url 'realty:list' 'mt' %}" id="mt" title="MT"><img src="{% static 'img/null.gif' %}" alt="MT" /></a></li>
+                <li id="cro" estado="ro"><a href="{% url 'realty:list' 'ro' %}" id="ro" title="RO"><img src="{% static 'img/null.gif' %}" alt="RO" /></a></li>
+                <li id="cac" estado="ac"><a href="{% url 'realty:list' 'ac' %}" id="ac" title="AC"><img src="{% static 'img/null.gif' %}" alt="AC" /></a></li>
+                <li id="cam" estado="am"><a href="{% url 'realty:list' 'am' %}" id="am" title="AM"><img src="{% static 'img/null.gif' %}" alt="AM" /></a></li>
+                <li id="crr" estado="rr"><a href="{% url 'realty:list' 'rr' %}" id="rr" title="RR"><img src="{% static 'img/null.gif' %}" alt="RR" /></a></li>
+                <li id="cpa" estado="pa"><a href="{% url 'realty:list' 'pa' %}" id="pa" title="PA"><img src="{% static 'img/null.gif' %}" alt="PA" /></a></li>
+                <li id="cap" estado="ap"><a href="{% url 'realty:list' 'ap' %}" id="ap" title="AP"><img src="{% static 'img/null.gif' %}" alt="AP" /></a></li>
+                <li id="cma" estado="ma"><a href="{% url 'realty:list' 'ma' %}" id="ma" title="MA"><img src="{% static 'img/null.gif' %}" alt="MA" /></a></li>
+                <li id="cto" estado="to"><a href="{% url 'realty:list' 'to' %}" id="to" title="TO"><img src="{% static 'img/null.gif' %}" alt="TO" /></a></li>
+                <li id="cse" estado="se"><a href="{% url 'realty:list' 'se' %}" id="se" title="SE"><img src="{% static 'img/null.gif' %}" alt="SE" /></a></li>
+                <li id="cal" estado="al"><a href="{% url 'realty:list' 'al' %}" id="al" title="AL"><img src="{% static 'img/null.gif' %}" alt="AL" /></a></li>
+                <li id="cpe" estado="pe"><a href="{% url 'realty:list' 'pe' %}" id="pe" title="PE"><img src="{% static 'img/null.gif' %}" alt="PE" /></a></li>
+                <li id="cpb" estado="pb"><a href="{% url 'realty:list' 'pb' %}" id="pb" title="PB"><img src="{% static 'img/null.gif' %}" alt="PB" /></a></li>
+                <li id="crn" estado="rn"><a href="{% url 'realty:list' 'rn' %}" id="rn" title="RN"><img src="{% static 'img/null.gif' %}" alt="RN" /></a></li>
+                <li id="cce" estado="ce"><a href="{% url 'realty:list' 'ce' %}" id="ce" title="CE"><img src="{% static 'img/null.gif' %}" alt="CE" /></a></li>
+                <li id="cpi" estado="pi"><a href="{% url 'realty:list' 'pi' %}" id="pi" title="PI"><img src="{% static 'img/null.gif' %}" alt="PI" /></a></li>
+            </ul>
+        </div>
+    </div>
+
+    Escolha seu estado:
+    <ol class="breadcrumb">
+        <li><a href="/ac/" title="Acre">AC</a></li>
+        <li><a href="/al/" title="Alagoas">AL</a></li>
+        <li><a href="/ap/" title="Amapá">AP</a></li>
+        <li><a href="/am/" title="Amazonas">AM</a></li>
+        <li><a href="/ba/" title="Bahia">BA</a></li>
+        <li><a href="/ce/" title="Ceará">CE</a></li>
+        <li><a href="/df/" title="Distrito Federal">DF</a></li>
+        <li><a href="/es/" title="Espírito Santo">ES</a></li>
+        <li><a href="/go/" title="Goiás">GO</a></li>
+        <li><a href="/ma/" title="Maranhão">MA</a></li>
+        <li><a href="/mt/" title="Mato Grosso">MT</a></li>
+        <li><a href="/ms/" title="Mato Grosso do Sul">MS</a></li>
+        <li><a href="/mg/" title="Minas Gerais">MG</a></li>
+        <li><a href="/pa/" title="Pará">PA</a></li>
+        <li><a href="/pb/" title="Paraíba">PB</a></li>
+        <li><a href="/pr/" title="Paraná">PR</a></li>
+        <li><a href="/pe/" title="Pernambuco">PE</a></li>
+        <li><a href="/pi/" title="Piauí">PI</a></li>
+        <li><a href="/rj/" title="Rio de Janeiro">RJ</a></li>
+        <li><a href="/rn/" title="Rio Grande do Norte">RN</a></li>
+        <li><a href="/rs/" title="Rio Grande do Sul">RS</a></li>
+        <li><a href="/ro/" title="Rondônia">RO</a></li>
+        <li><a href="/rr/" title="Roraima">RR</a></li>
+        <li><a href="/sc/" title="Santa Catarina">SC</a></li>
+        <li><a href="/sp/" title="São Paulo">SP</a></li>
+        <li><a href="/se/" title="Sergipe">SE</a></li>
+        <li><a href="/to/" title="Tocantins">TO</a></li>
+    </ol>
+
+{% endblock %}

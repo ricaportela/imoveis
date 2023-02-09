@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load humanize %}
+{% load realtysimulator %}
+
+{% if state_meta %}
+    {% block meta_title %}Imóveis para venda em {{ object.name }} | {{ state_meta.name }} - {{ state_meta.abbr }}{% endblock meta_title %}
+    {% block meta_description %}Lista de imóveis para venda em {{ object.name }} | {{ state_meta.name }} - {{ state_meta.abbr }}{% endblock meta_description %}
+    {% block meta_keyword %}{{ state.abbr }},{{ state.name }},{{ object.name }}{% endblock meta_keyword %}
+{% endif %}
+
+{% block state %} - {% if state_meta %}{{ state_meta.abbr }}{% else%}{{ state }}{% endif %}{% endblock %}
+
+{% block content_size %}6{% endblock %}
+
+{% block content %}
+
+    {% if state_meta %}
+        <h3>Lista de imóveis para venda em {{ object.name }} | {{ state_meta.name }} - {{ state_meta.abbr }}</h3>
+    {% endif %}
+
+  <ol class="breadcrumb text-right realty-top-filter">
+    <li class="active">Ordenar por: </li>
+    <li><a id="date-ordering" href="#">data</a></li>
+    <li><a id="price-ordering" href="#">preço</a></li>
+    {% if simulator %}
+        <li><a id="entry-ordering" href="#">entrada</a></li>
+    {% endif %}
+  </ol>
+        <div id="Resultado_Lista">
+
+            <ul id="results-list">
+                {% for object in object_list %}
+                <li>
+                    <a href="{% url 'realty:view' object.state.abbr|lower object.slug %}">
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="foto">
+                            <div class="lines">
+
+                                <div class="box">
+                                    {% if object.cover %}
+                                    <img src="{{ object.cover.url }}"
+                                         alt="{{ object.title }}" width="136" height="102"/>
+                                    {% else %}
+                                    <img src="{% static 'images/default-healty-image.jpg' %}"
+                                         alt="{{ object.title }}" width="136" height="102"/>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="dados">
+
+                            <div class="dadosbox">
+
+                                <h3>{{ object.title }}</h3>
+                                <p>{{ object.description|truncatewords:30 }}</p>
+
+                            </div>
+
+                        </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="valores">
+
+                            <div class="preco">
+
+                            	<p class="u-price text-center" value="{{ object.value }}">R$ {{ object.value }}</p>
+
+                            </div>
+                            {% if simulator %}
+                            <div class="entrada">
+
+                                <p class="tit">Entrada</p>
+                                <p class="val entry price-entry"
+                                   value="{% down_payment object.value simulator.price.funding %}">
+                                    {% down_payment object.value simulator.price.funding %}
+                                </p>
+                                <p class="val entry sac-entry" style="display: none;"
+                                   value="{% down_payment object.value simulator.sac.funding %}">
+                                    {% down_payment object.value simulator.sac.funding %}
+                                </p>
+
+                            </div>
+                            {% endif %}
+
+                        </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="data">
+
+                            <p class="dia" value="{{ object.modified|date:'Y-m-d-H-i-s' }}">{{ object.modified|naturaltime }}</p>
+
+
+                        </div>
+                            </div>
+                        </div>
+                    </a>
+
+                </li>
+                {% empty %}
+                    <li>
+                    <a href="{% url 'realty:add' user_state %}">
+
+                        <div class="foto">
+                            <div class="lines">
+
+                                <div class="box">
+                                    <img src="{% static 'images/default-healty-image.jpg' %}"
+                                         alt="Imóvel modelo" width="136" height="102"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="dados">
+
+                            <div class="dadosbox">
+
+                                <h3>SEU IMÓVEL AQUI GRÁTIS!</h3>
+                                <p>Cadastre seu imóvel no maior Portal de Imóveis Financiados do Brasil.</p>
+                            </div>
+
+                        </div>
+
+                        <div class="valores">
+
+                            <div class="preco">
+
+                            	<p>R$ 100.000,00</p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="data">state
+
+                            <p class="dia">2 dias atrás</p>
+
+
+                        </div>
+
+                    </a>
+
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% include "core/pagination.html" %}
+
+{% endblock content %}
+
+{% block right_sidebar %}
+<div class="col-md-3" id="leftCol">
+    <ul class="nav">
+        <li>
+            <div class="sidebar-ad">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- listagem_imoveis -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-5102863871686210"
+                     data-ad-slot="7572135486"
+                     data-ad-format="auto"></ins>
+                <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </li>
+    </ul>
+</div>
+{% endblock right_sidebar %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            function parseDate(obj) {
+                var date_ = $(obj).attr('value');
+                var value = date_.split('-');
+                return new Date(value[0], value[1], value[2], value[3], value[4])
+            }
+
+            $("#realty").addClass("ativo");
+            $("#price-tab").click(function() {
+                    $(".price-entry").show();
+                    $(".sac-entry").hide();
+            });
+            $("#sac-tab").click(function() {
+                $(".sac-entry").show();
+                $(".price-entry").hide();
+            });
+            $("#date-ordering").click(function() {
+                var results_list = $("#results-list");
+                var lista = results_list.find("li div.data p.dia");
+                var result = lista.sort(function(a, b) {
+                    a = parseDate(a);
+                    b = parseDate(b);
+                    return a > b ? -1 : a < b ? 1: 0;
+                });
+                results_list.html("");
+                result.each(function() {
+                    var obj = $(this).parent().parent().parent();
+                    results_list.append(obj);
+                });
+            });
+            $("#price-ordering").click(function() {
+                var results_list = $("#results-list");
+                var lista = results_list.find("li div.preco p.u-price");
+                var result = lista.sort(function(a, b) {
+                    a = $(a).attr('value');
+                    b = $(b).attr('value');
+                    return a > b ? 1 : a < b ? -1: 0;
+                });
+                results_list.html("");
+                result.each(function() {
+                    var obj = $(this).parent().parent().parent().parent();
+                    results_list.append(obj);
+                });
+            });
+            $("#entry-ordering").click(function() {
+                var results_list = $("#results-list");
+                var lista = results_list.find("li div.entrada p.entry:visible");
+                var result = lista.sort(function(a, b) {
+                    a = $(a).attr('value');
+                    b = $(b).attr('value');
+                    return a > b ? 1 : a < b ? -1: 0;
+                });
+                results_list.html("");
+                result.each(function() {
+                    var obj = $(this).parent().parent().parent().parent();
+                    results_list.append(obj);
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

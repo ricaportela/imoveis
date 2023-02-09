@@ -1,0 +1,55 @@
+[
+    {
+        "model": "advertises.Banner",
+        "pk": 1,
+        "fields": {
+            "title": "Banner Inloco",
+            "image": "fixtures/banner-inloco.png",
+            "url": "http://www.inlocoformas.com/"
+        }
+    },
+    {
+        "model": "advertises.Banner",
+        "pk": 2,
+        "fields": {
+            "title": "Banner Muro Pronto",
+            "image": "fixtures/banner-muro-pronto.png",
+            "url": "http://www.muroprontodecorado.com.br/"
+        }
+    },
+    {
+        "model": "advertises.ADNational",
+        "pk": 1,
+        "fields": {
+            "title": "Anúncio Inloco Formas",
+            "active": true,
+            "banner": 1,
+            "created": "2019-03-07 19:44:00.531953+00:00",
+            "modified": "2019-03-07 19:44:30.531993+00:00"
+        }
+    },
+    {
+        "model": "advertises.ADState",
+        "pk": 1,
+        "fields": {
+            "title": "Anúncio Inloco Formas",
+            "active": true,
+            "banner": 2,
+            "states": [1],
+            "created": "2019-03-07 19:44:00.531953+00:00",
+            "modified": "2019-03-07 19:44:30.531993+00:00"
+        }
+    },
+    {
+        "model": "advertises.ADCity",
+        "pk": 1,
+        "fields": {
+            "title": "Anúncio Inloco Formas",
+            "active": true,
+            "banner": 2,
+            "cities": [1],
+            "created": "2019-03-07 19:44:00.531953+00:00",
+            "modified": "2019-03-07 19:44:30.531993+00:00"
+        }
+    }
+]

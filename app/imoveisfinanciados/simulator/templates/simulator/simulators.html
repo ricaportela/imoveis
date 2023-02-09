@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block meta_title %}Simuladores de Financiamento de Imóveis Online{% endblock meta_title %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Escolha o simulador que você deseja usar</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 text-right">
+            <a href="{% url 'simulators:income' %}" class="btn btn-primary btn-lg">Por renda</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{% url 'simulators:installment' %}" class="btn btn-primary btn-lg">Por prestação</a>
+        </div>
+    </div>
+
+{% endblock content %}

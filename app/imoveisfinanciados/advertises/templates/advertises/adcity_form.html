@@ -1,0 +1,133 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'advertises:adcity_list' %}">Anúncios</a></li>
+    <li><a href="{% url 'advertises:adcity_list' %}">Municipais</a></li>
+    {% if object %}
+        <li class="active">Editar anúncio</li>
+    {% else %}
+        <li class="active">Cadastrar anúncio</li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{% if object %}Editar{% else %}Cadastrar{% endif %} anúncio</h5>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="modal fade" id="modal-banner-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title">Adicionar banner</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/anuncios/banner/ajax-add"
+                                              method="post"
+                                              class="form-horizontal labels-left"
+                                              enctype="multipart/form-data"
+                                              id="banner-form">
+                                            {% csrf_token %}
+                                            {{banner_form.as_p}}
+                                            <button type="submit" id="save-banner" class="btn btn-primary">Salvar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form action="" method="post" class="form-horizontal labels-left" enctype="multipart/form-data" id="advertises-form">
+                            {% csrf_token %}
+
+                            {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors.as_text }}
+                            </div>
+                            {% endif %}
+
+                            <div class="form-group {% if form.title.errors %}has-error{% endif %}">
+                                <label for="{{ form.title.id_for_label }}" class="col-sm-2 control-label">{{ form.title.label }}</label>
+                                {{ form.title }}
+                                {% if form.title.errors %}
+                                    <span class="help-block color-danger">{{ form.title.errors.as_text }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.banner.errors %}has-error{% endif %}">
+                                <label for="{{ form.banner.id_for_label }}" class="col-sm-2 control-label">{{ form.banner.label }}</label>
+                                {{ form.banner }}
+                                {% if form.banner.errors %}
+                                    <span class="help-block color-danger">{{ form.banner.errors.as_text }}</span>
+                                {% endif %}
+                                <button class="btn btn-link btn-sm" type="button" data-toggle="modal" data-target="#modal-banner-form"><i class="fa fa-plus"></i> Adicionar Banner</button>
+                            </div>
+
+                            <div class="form-group form-check {% if form.active.errors %}has-error{% endif %}">
+                                {{ form.active }}
+                                <label for="{{ form.active.id_for_label }}" class="col-sm-2 form-check-label">{{ form.active.label }}</label>
+                                {% if form.active.errors %}
+                                    <span class="help-block color-danger">{{ form.active.errors.as_text }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.state.errors %}has-error{% endif %}">
+                                <label for="{{ form.state.id_for_label }}" class="col-sm-2 control-label">{{ form.state.label }}</label>
+                                {{ form.state }}
+                                {% if form.state.errors %}
+                                    <span class="help-block color-danger">{{ form.state.errors.as_text }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group {% if form.cities.errors %}has-error{% endif %}">
+                                <label for="{{ form.cities.id_for_label }}" class="col-sm-2 control-label">{{ form.cities.label }}</label>
+                                {{ form.cities }}
+                                {% if form.cities.errors %}
+                                    <span class="help-block color-danger">{{ form.cities.errors.as_text }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="row" style="text-align: right;">
+                                <div class="col-md-8">
+                                    <input type="submit" class="btn btn-primary" value="Salvar" />
+                                    <a href="{% url 'advertises:adcity_list' %}" class="btn btn-white">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'js/jquery.form-3.51.0.min.js' %}"></script>
+    <script src="{% static 'js/advertises/bannerForm.js' %}"></script>
+    <script src="{% static 'js/advertises/dynamicCity.js' %}"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var advertises = $("#advertises");
+        advertises.addClass("active");
+        advertises.find("ul").addClass("in");
+        $(".advertises-list").addClass("active");
+
+        {% if object.pk %}
+            fillFormOnEdit({{ object.related_state }}, {{ object.cities_list }})
+        {% endif %}
+    });
+    </script>
+{% endblock %}
+
+

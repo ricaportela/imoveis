@@ -1,0 +1,27 @@
+{% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {{ form.non_field_errors.as_text }}
+    </div>
+{% endif %}
+
+{% for hidden in form.hidden_fields %}
+    {{ hidden }}
+{% endfor %}
+
+{% for field in form.visible_fields %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+        {% if field.errors %}
+        <div class="col-sm-8 col-sm-offset-4">
+            <div class="text-danger" role="alert">
+                {{ field.errors.as_text }}
+            </div>
+        </div>
+        {% endif %}
+        <label class="col-sm-4 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="col-sm-8">
+            {{ field }}
+            <span class="help-block m-b-none">{{ field.help_text }}</span>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+{% endfor %}

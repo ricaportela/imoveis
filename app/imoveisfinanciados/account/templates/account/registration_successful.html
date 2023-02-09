@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+Thank you for registering! You can now manage your account here: <a href="{% url 'auth_manage' %}" name="manage home">manager</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Ops... Não encontramos a página que você buscou.</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>É muito simples usar o ImóveisFinanciados! Basta escolher seu <a href="{% url 'index' %}">estado</a>
+                e utilizar uma de nossas buscas ao lado, por renda ou avançada. =)</p>
+            <p>Se tiver dúvidas entre em <a href="{% url 'contact_us' %}">contato</a>!</p>
+        </div>
+    </div>
+{% endblock %}

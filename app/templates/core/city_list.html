@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta_title %}Imóveis para venda em {{ state.name }} - {{ state.abbr }}{% endblock meta_title %}
+{% block meta_description %}Imóveis à venda em {{ state.name }} - {{ state.abbr }}{% endblock meta_description %}
+{% block meta_keyword %}{{ state.abbr }},{{ state.name }}{% endblock meta_keyword %}
+
+{% block breadcrumbs %}
+    <li>Imóveis Financiados</li>
+    <li class="active">{{ state.name }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Imóveis para venda em {{ state.name }} - {{ state.abbr }}</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="Resultado_Lista">
+                <ul id="results-list">
+                    {% for object in object_list %}
+                    <li class="city-list">
+                        <h3><a href="{% url 'city_detail' state.abbr|lower object.slug %}" title="{{ object.name }}">{{ object.name }}</a></h3>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

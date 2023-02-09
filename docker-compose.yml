@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+ app:
+    container_name: imoveisfinanciados
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    tty: true
+    volumes:
+    - /app/media:/app/media
+    - /app/static:/app/static
+    command: >
+      sh -c 'python manage.py runserver 0.0.0.0:8000'
+    depends_on:
+      - db
+    environment:
+      DB_HOST: imoveis_financiados
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+ db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: imoveis_financiados
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./data:/data/postgres
+    ports:
+      - "5432:5432"

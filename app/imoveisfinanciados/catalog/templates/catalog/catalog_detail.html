@@ -1,0 +1,42 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'catalog:user_list' %}">Catálogo</a></li>
+    <li class="active">{{ object.name }}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{{ object.name }}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <dl>
+                            <dt>Nome:</dt>
+                            <dd>{{ object.name }}</dd>
+
+                            <dt>Localização</dt>
+                            <dd>{{ object.localization }}</dd>
+
+                            <dt>Ativo?</dt>
+                            <dd>
+                                {% if object.is_active %}
+                                    <i class="fa fa-check text-success"></i>
+                                    <a href="#">Ver histórico</a>
+                                {% else %}
+                                    <i class="fa fa-times text-navy"></i>
+                                    <a href="{% url 'catalog:checkout' object.pk %}">Ativar anúncio</a>
+                                {% endif %}
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

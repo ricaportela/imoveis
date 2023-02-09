@@ -1,0 +1,36 @@
+[
+    {
+        "model": "core.State",
+        "pk": 1,
+        "fields": {
+            "abbr": "DF",
+            "name": "Distrito Federal"
+        }
+    },
+    {
+        "model": "core.State",
+        "pk": 2,
+        "fields": {
+            "abbr": "RJ",
+            "name": "Rio de Janeiro"
+        }
+    },
+    {
+        "model": "core.City",
+        "pk": 1,
+        "fields": {
+            "name": "Brasília",
+            "state": 1,
+            "slug": "brasilia"
+        }
+    },
+    {
+        "model": "core.City",
+        "pk": 2,
+        "fields": {
+            "name": "Errejota",
+            "state": 2,
+            "slug": "errejota"
+        }
+    }
+]

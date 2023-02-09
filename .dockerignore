@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.docker
+
+# Python
+prj-imoveis/__pycache__/
+prj-imoveis/*/__pycache__/
+prj-imoveis/*/*/__pycache__/
+prj-imoveis/*/*/*/__pycache__/
+.env/
+.venv/
+venv/
+
+# Local PostgreSQL data
+data/
+mnt_data/
+pgdata/
+
+tmp/
+media/
+staticfiles/
+uploades/
+.env
+contrib/
+db.sqlite3

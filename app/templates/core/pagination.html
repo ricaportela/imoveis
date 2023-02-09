@@ -1,0 +1,57 @@
+{% if is_paginated %}
+<div class="row">
+    <div class="col-md-12 center">
+        <nav>
+          <ul class="pagination">
+
+            {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}{% if filtering %}&{{ filtering }}{% endif %}" aria-label="Anterior">
+                  <span>
+                    <span aria-hidden="true">&laquo;</span>
+                  </span>
+                </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Anterior">
+                  <span>
+                    <span aria-hidden="true">&laquo;</span>
+                  </span>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for page in paginator.page_range %}
+                {% if page %}
+                    {% if page == page_obj.number %}
+                    <li class="active">
+                        <span>{{ page }} <span class="sr-only">(current)</span></span>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="?page={{ page }}{% if filtering %}&{{ filtering }}{% endif %}">{{ page }}</a>
+                    </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}{% if filtering %}&{{ filtering }}{% endif %}" aria-label="Próximo">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Próximo">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+
+          </ul>
+        </nav>
+    </div>
+</div>
+{% endif %}

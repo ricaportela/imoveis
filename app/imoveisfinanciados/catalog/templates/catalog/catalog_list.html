@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block state %} - {{ state }}{% endblock %}
+
+{% block content %}
+
+        <div id="Resultado_Lista">
+
+            <ul>
+                {% for object in object_list %}
+                <li>
+
+                    <div class="foto">
+                        <div class="lines">
+
+                            <div class="box">
+                                {% if object.logo %}
+                                <img src="{{ object.logo.url }}"
+                                     alt="{{ object.name }}" width="136" height="102"/>
+                                {% else %}
+                                <img src="{% static 'images/default-healty-image.jpg' %}"
+                                     alt="{{ object.name }}" width="136" height="102"/>
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="dados">
+
+                        <div class="dadosbox">
+
+                            <h3>{{ object.name }}</h3>
+                            <p><strong>Localização: </strong>{{ object.localization }}</p>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <!-- View phone -->
+                        <button type="button" class="col-md-3 catalog-buttons btn btn-default btn-xs" data-toggle="modal" data-target="#{{ object.slug }}">Ver telefone</button>
+                        <div id="{{ object.slug }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Telefones</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% for phone in object.phones.all %}
+                                            <p><strong>{{ phone.get_type_display }}</strong>: {{ phone.number }}</p>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- // View phone -->
+
+                        <!-- Mail -->
+                        <button type="button" class="col-md-3 catalog-buttons btn btn-default btn-xs open-form-modal" data-cf="{% url 'catalog:contact_form' object.pk %}" data-target="{{ object.slug }}">E-mail</button>
+                        <div id="mail-{{ object.slug }}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Envie email para {{ object.name }}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Para enviar um email para <strong>{{ object.name }}</strong> preencha os campos abaixo e clique em enviar.</p>
+                                        <div class="mail-form-{{ object.slug }}">
+                                            ...
+                                        </div>
+                                        <p>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- // Mail -->
+                    </div>
+
+                </li>
+                {% empty %}
+                    <li>Ainda não há {{ catalog_type }} nesta página. Seja o primeiro! <a href="{% url 'catalog:choice_type' %}">Cadastre agora!</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% include "core/pagination.html" %}
+
+{% endblock content %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var active_tab = "{{ catalog_type }}";
+            if (!active_tab) {
+                $("#catalog_imobiliarias").first().addClass("ativo");
+            }
+            else {
+                var idtab = "#catalog_" + active_tab;
+                $(idtab).addClass("ativo");
+            }
+            $("#tab_navigation li a").click(function() {
+                $("#tab_navigation li").each(function() {
+                    $(this).removeClass("ativo");
+                });
+                $(this).parent().addClass("ativo")
+            });
+
+            $(".open-form-modal").click(function() {
+                var url = $(this).attr("data-cf"),
+                    target = $(this).attr("data-target");
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    beforeSend: function() {
+                        $("body").spin();
+                    },
+                    success: function(content) {
+                        var container = ".mail-form-" + target;
+                        $(container).html(content);
+                    },
+                    error: function(err) {
+                        alert(err);
+                    },
+                    complete: function() {
+                        var tgt = "#mail-" + target;
+                        $("body").spin(false);
+                        $(tgt).modal();
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,10 @@
+<form class="m-t" role="form" action="" method="post">
+    {% csrf_token %}
+    {% include 'utils/form_snippet.html' %}
+    <div class="form-group">
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary block full-width m-b">Enviar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+</form>

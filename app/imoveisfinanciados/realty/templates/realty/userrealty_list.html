@@ -1,0 +1,78 @@
+{% extends 'dashboard.html' %}
+
+{% load static %}
+
+{% block breadcrumbs %}
+    <li><a href="{% url 'realty:user_realties' user_state %}">Imóveis</a></li>
+    <li class="active">Meus imóveis</li>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInUp">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Meus imóveis</h5>
+                        <div class="ibox-tools">
+                            <a class="btn btn-primary btn-xs" href="{% url 'realty:add' user_state %}">Cadastrar novo imóvel</a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="realty-list">
+
+                            <table class="table table-hover">
+                                <tbody>
+                                {% for object in object_list %}
+                                <tr>
+                                    <td class="realty-photo">
+                                        <a href="{% url 'realty:update' user_state object.pk %}">
+                                            {% if object.cover %}
+                                            <img src="{{ object.cover.url }}"
+                                                 alt="{{ object.title }}" width="125" height="125"/>
+                                            {% else %}
+                                            <img src="{% static 'images/default-healty-image.jpg' %}"
+                                                 alt="{{ object.title }}" width="125" height="125"/>
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="realty-title">
+                                        <p><a href="{% url 'realty:update' user_state object.pk %}">{{ object.title }}</a></p>
+                                        <p><span class="label label-primary">{{ object.get_type_display }}</span></p>
+                                        <br/>
+                                        <small>{{ object.description|truncatewords:20 }}</small>
+                                    </td>
+                                    <td class="realty-value">
+                                        <p><strong>R$ {{ object.value }}</strong></p>
+                                    </td>
+                                    <td class="realty-actions">
+                                        <a class="btn btn-white btn-sm" href="{% url 'realty:view' user_state object.slug %}"><i class="fa fa-folder"></i> Visualizar no site</a>
+                                        <a class="btn btn-white btn-sm" href="{% url 'realty:update' user_state object.pk %}"><i class="fa fa-pencil"></i> Editar </a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                    <tr><p>Nenhum imóvel cadastrado.</p></tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            {% include 'core/pagination.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#realties").addClass("active");
+        $("#realties ul").addClass("in");
+        $(".realty-user-list").attr("class", "active");
+    });
+    </script>
+
+{% endblock %}

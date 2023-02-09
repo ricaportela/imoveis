@@ -1,0 +1,184 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ImóveisFinanciados.com | Painel de administração</title>
+
+    <link href="{% static 'dashboard/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+
+    <link href="{% static 'dashboard/css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/css/style-imoveisfin.css' %}" rel="stylesheet">
+    <link href="{% static 'css/topo.css' %}" rel="stylesheet">
+    <link href="{% static 'dashboard/css/custom.css' %}" rel="stylesheet">
+
+    <!-- Favicon
+    <link rel="shortcut icon" href="#"> -->
+
+    {% block stylesheets %}
+
+
+    {% endblock stylesheets %}
+
+</head>
+
+<body>
+
+<div class="header clearfix dashboard-topo" id="Topo">
+
+         <!-- Logo -->
+        <div id="Topo-logo">
+            <a href="{% url 'index' %}" title="Imóveis Financiados - Seu imóvel no seu bolso!">
+                <img src="{% static 'images/logo-efinanciado.png' %}" alt="Logo Imóveis Financiados">
+                <img alt="Mascote Imóveis Financiados" width="64" src="{% static 'images/mascote-efinanciado.png' %}">
+            </a>
+        </div>
+
+        <nav id="Topo-nave">
+          <div class="navegacao">
+            <ul class="menu">
+                <li><a href="{% url 'index' %}">Ir para o site</a></li>
+                <li role="presentation"><a href="{% url 'realty:user_realties' user_state %}">Meus anúncios</a></li>
+            </ul>
+            <div class="usuario">
+                <p class="bt-usuario">
+                    {% if user.pk %}
+                    <a href="{% url 'accounts:auth_profile' %}">{{ user.first_name }}</a>
+                    {% else %}
+                    <a href="{% url 'accounts:auth_register' %}">Minha conta</a>
+                    {% endif %}
+                </p>
+            </div>
+            {% if user.pk %}
+              <ul class="menu">
+                <li><a href="{% url 'accounts:auth_logout' %}" title="Encerrar sessão"><i class="fa fa-times"></i></a></li>
+              </ul>
+            {% endif %}
+          </div>
+        </nav>
+      </div> <!-- /header -->
+
+<div id="wrapper">
+
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">ImóveisFinanciados.com</strong>
+                             </span> <span class="text-muted text-xs block">Bem vindo, {{ user.first_name }} <b class="caret"></b></span> </span> </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a href="{% url 'accounts:auth_profile' %}">Configurações</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'accounts:auth_logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="realties">
+                    <a href="#"><i class="fa fa-home"></i> <span class="nav-label">Imóveis</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="realty-user-list"><a href="{% url 'realty:user_realties' user_state %}">Meus imóveis</a></li>
+                        <li class="realty-register"><a href="{% url 'realty:add' user_state %}">Cadastrar novo</a></li>
+                    </ul>
+                </li>
+                {% if has_catalog %}
+                <li id="catalogo">
+                    <a href="#"><i class="fa fa-star"></i> <span class="nav-label">Catálogo</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li class="catalog-list"><a href="{% url 'catalog:user_list' %}">Lista</a></li>
+                        <li class="catalog-add"><a href="{% url 'catalog:choice_type' %}">Adicionar novo</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if request.user.is_superuser %}
+                <li id="advertises">
+                    <a href="#"><i class="fa fa-star"></i> <span class="nav-label">Administração de anúncios</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li><a href="{% url 'admin:advertises_banner_changelist' %}" target="_blank">Banners</a></li>
+                        <li><a href="{% url 'admin:advertises_adnational_changelist' %}" target="_blank">Anúncios Nacionais</a></li>
+                        <li><a href="{% url 'admin:advertises_adstate_changelist' %}" target="_blank">Anúncios Estaduais</a></li>
+                        <li class="advertises-list"><a href="{% url 'advertises:adcity_list' %}">Anúncios Municipais</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </nav>
+
+    <div id="page-wrapper" class="gray-bg">
+        {% if messages %}
+        <div class="row">
+            <div class="col-md-12">
+                  {% for message in messages %}
+                  <div class="alert alert-dismissible
+                              alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                      {{ message }}
+                  </div>
+                  {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-12">
+                <ol class="breadcrumb" style="margin-top: 1em;">
+                    <li>
+                        <a href="{% url 'realty:user_realties' user_state %}">Início</a>
+                    </li>
+                    {% block breadcrumbs %}
+                    {% endblock %}
+                </ol>
+            </div>
+        </div>
+
+        {% block content %}
+
+        {% endblock content %}
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> ImóveisFinanciados.com &copy; {% now "Y" %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="{% static 'js/jquery-2.1.1.js' %}"></script>
+<script src="{% static 'dashboard/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'dashboard/js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+<script src="{% static 'dashboard/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="{% static 'dashboard/js/inspinia.js' %}"></script>
+<script src="{% static 'dashboard/js/plugins/pace/pace.min.js' %}"></script>
+
+<!-- csrftoken -->
+<script type="text/javascript" src="{% static 'dashboard/js/cookie.js' %}"></script>
+
+<!-- Masks -->
+<script type="text/javascript" src="{% static 'dashboard/js/jquery.mask.js' %}"></script>
+
+<!-- Spin -->
+<script type="text/javascript" src="{% static 'dashboard/js/spin.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'dashboard/js/jquery.spin.js' %}"></script>
+
+{% block js %}
+
+{% endblock js %}
+
+
+</body>
+
+</html>

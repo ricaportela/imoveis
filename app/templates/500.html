@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Ops... Ocorreu um erro no servidor.</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>Caso esteja com problemas para utilizar o ImoveisFinanciados, entre em <a href="{% url 'contact_us' %}">contato</a>.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <p>É muito simples usar o ImóveisFinanciados! Basta escolher seu <a href="{% url 'index' %}">estado</a>
+                e utilizar uma de nossas buscas ao lado, por <a href="{% url 'simulators:income' %}" title="Simulador de financiamento por renda">
+                    renda</a>, <a href="{% url 'simulators:installment' %}" title="Simulador de financiamento por prestação">
+                    prestação</a> ou avançada. =)</p>
+            <p>Se tiver dúvidas entre em <a href="{% url 'contact_us' %}">contato</a>!</p>
+        </div>
+    </div>
+{% endblock %}

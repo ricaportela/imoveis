@@ -1,0 +1,641 @@
+{% load static moneyformat advertises %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="{% block meta_description %}Venda ou compre seu imóvel. Portal de Imóveis para venda ou financiamento. Anuncie grátis seu imóvel para todo Brasil{% endblock meta_description %} | ImóveisFinanciados.com">
+    <meta name="keywords" content="imoveis, imoveis financiados, imovel, imovel financiado, simulador de financiamento,
+simulador, financiamento, renda, prestação, entrada, sem entrada, 100% financiado, venda, classificados,
+grátis, gratuito, correspondente bancário, corretor, corretores, imobiliária, imobiliárias, busca de imóveis,
+olx, zapimoveis, wimoveis, imoveisweb, caixa economica federal, banco do brasil, habitação{% block meta_keyword %}{% endblock meta_keyword %}">
+    <meta name="author" content="Bruno Barbosa">
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <meta name="robots" content="{% block meta_robots %}index, follow{% endblock meta_robots %}">
+
+    <title>{% block meta_title %}Seu imóvel no seu bolso!{% endblock meta_title %} | ImoveisFinanciados.com</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/topo.css' %}" rel="stylesheet">
+    <link href="{% static 'css/site-custom.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      {% block stylesheets %}
+
+
+      {% endblock stylesheets %}
+  </head>
+  <body>
+    <div class="container" id="container">
+
+      <div class="header clearfix" id="Topo">
+
+         <!-- Logo -->
+        <div id="Topo-logo">
+
+            <a href="{% url 'index' %}" title="Imóveis Financiados - Seu imóvel no seu bolso!">
+                <img src="{% static 'images/logo-efinanciado.png' %}" alt="Logo Imóveis Financiados">
+                <img alt="Mascote Imóveis Financiados" width="64" src="{% static 'images/mascote-efinanciado.png' %}">
+            </a>
+
+        </div>
+
+        <nav id="Topo-nave">
+          <div class="navegacao">
+            <ul class="menu">
+              <li role="presentation"><a href="{% url 'index' %}">Página Inicial</a></li>
+              <!--
+              <li role="presentation"><a href="#">Quem somos</a></li>
+              -->
+              <li role="presentation"><a href="{% url 'simulators:list' %}">Simuladores</a></li>
+              <li role="presentation"><a href="{% url 'realty:user_realties' user_state %}">Meus anúncios</a></li>
+            </ul>
+            <div class="usuario">
+
+                <p class="bt-usuario">
+                    {% if user.pk %}
+                    <a href="{% url 'accounts:auth_profile' %}">{{ user.first_name }}</a>
+                    {% else %}
+                    <a href="{% url 'accounts:auth_register' %}">Minha conta</a>
+                    {% endif %}
+                </p>
+
+            </div>
+            {% if user.pk %}
+              <ul class="menu">
+                <li role="presentation"><a href="{% url 'accounts:auth_logout' %}" title="Encerrar sessão"><strong>x</strong></a></li>
+              </ul>
+            {% endif %}
+
+
+            <div class="cadastrar">
+                <div class="gratis">
+
+                    <!-- imagem -->
+                    <img src="{% static 'images/gratis.png' %}" width="43" height="43" alt=""/>
+
+                    <!-- botão -->
+                    <a href="{% url 'realty:add' user_state %}" class="bt-cadastrar">Inserir anúncio</a>
+
+                </div>
+            </div>
+          </div>
+        </nav>
+      </div> <!-- /header -->
+
+      <div class="row">
+        <div class="col-md-12">
+          {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-dismissible
+                          alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                  {{ message }}
+              </div>
+              {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+    <div class="row">
+        {% if not sidebar_disabled %}
+        <div class="col-md-3" id="leftCol"> <!-- search -->
+
+            <ul class="nav" id="sidebar">
+                <li>
+                    <!-- Calculo por renda -->
+                    <div id="Sidebar-calculo" class="sidebar-calculo-border"
+                        {% if simulator %}style="margin-bottom: 0;"{% endif %}>
+
+                        <div class="titulo">
+                            <p>BUSCA POR</p>
+                        </div>
+
+                        <div id="simuladores">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation" class="{% if search_type != 'installment' %}active{% endif %}">
+                                    <a href="#renda"
+                                       id="renda-tab"
+                                       aria-controls="renda"
+                                       role="tab"
+                                       data-toggle="tab">RENDA</a>
+                                </li>
+
+                                <li role="presentation" class="{% if search_type == 'installment' %}active{% endif %}">
+                                    <a href="#prestacao"
+                                       id="prestacao-tab"
+                                       aria-controls="prestacao"
+                                       role="tab"
+                                       data-toggle="tab">PRESTAÇÃO</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel"
+                                     class="tab-pane fade {% if search_type != 'installment' %}in active{% endif %}"
+                                     id="renda">
+                                    <div class="Sidebar-formulario">
+                                        <form id="income_form" method="get" action="{% url 'realty:income_search' user_state %}">
+                                            {% csrf_token %}
+                                            {{ income_form.non_field_errors }}
+
+                                            <input type="hidden" value="income" name="search_type" />
+
+                                            <!-- State field -->
+                                            <div class="form-group {% if income_form.state.errors %}has-error{% endif %}">
+                                                <label for="{{ income_form.state.id_for_label }}"
+                                                       class="sr-only">
+                                                {{ income_form.state.label }}
+                                                </label>
+                                                {% if income_form.state.errors %}
+                                                    <div class="text-danger" role="alert">{{ income_form.state.errors.as_text }}</div>
+                                                {% endif %}
+                                                {{ income_form.state }}
+                                            </div> <!-- /State field -->
+
+                                            <!-- City field -->
+                                            <div class="form-group {% if income_form.city.errors %}has-error{% endif %}">
+                                                <label for="{{ income_form.city.id_for_label }}"
+                                                       class="sr-only">
+                                                    {{ income_form.city.label }}
+                                                </label>
+                                                {% if income_form.city.errors %}
+                                                    <div class="text-danger" role="alert">{{ income_form.city.errors.as_text }}</div>
+                                                {% endif %}
+                                                {{ income_form.city }}
+                                            </div> <!-- /City field -->
+
+                                            <!-- Birthday field -->
+                                            <div class="form-group {% if income_form.birthday.errors %}has-error{% endif %}">
+                                                <label for="{{ income_form.birthday.id_for_label }}"
+                                                       class="sr-only">
+                                                    {{ income_form.birthday.label }}
+                                                </label>
+                                                {% if income_form.birthday.errors %}
+                                                    <div class="text-danger" role="alert">{{ income_form.birthday.errors.as_text }}</div>
+                                                {% endif %}
+                                                {{ income_form.birthday }}
+                                            </div> <!-- /Birthday field -->
+
+                                            <!-- Income field -->
+                                            <div class="form-group {% if income_form.income.errors %}has-error{% endif %}">
+                                                <label for="{{ income_form.income.id_for_label }}"
+                                                       class="sr-only">
+                                                    {{ income_form.income.label }}
+                                                </label>
+                                                {% if income_form.income.errors %}
+                                                    <div class="text-danger" role="alert">{{ income_form.income.errors.as_text }}</div>
+                                                {% endif %}
+                                                {{ income_form.income }}
+                                            </div> <!-- /Income field -->
+
+                                            <!-- Dependents field -->
+                                            <div class="form-check {% if income_form.dependents.errors %}has-error{% endif %}">
+                                                {% if income_form.dependents.errors %}
+                                                    <div class="text-danger" role="alert">{{ income_form.dependents.errors.as_text }}</div>
+                                                {% endif %}
+                                                {{ income_form.dependents }}
+                                                <label for="{{ income_form.dependents.id_for_label }}"
+                                                       class="form-check-label">
+                                                    {{ income_form.dependents.label }}
+                                                </label>
+                                            </div> <!-- /Dependents field -->
+
+                                            <button type="submit" class="btn btn-default">Calcular</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel"
+                                     class="tab-pane fade {% if search_type == 'installment' %}in active{% endif %}"
+                                     id="prestacao">
+                                    <div class="Sidebar-formulario">
+                                        <form id="installment_form"
+                                          method="get"
+                                          action="{% url 'realty:installment_search' user_state %}">
+                                        {% csrf_token %}
+                                        {{ installment_form.non_field_errors }}
+
+                                        <input type="hidden" value="installment" name="search_type" />
+
+                                        <!-- State field -->
+                                        <div class="form-group {% if installment_form.state.errors %}has-error{% endif %}">
+                                            <label for="{{ installment_form.state.id_for_label }}"
+                                                   class="sr-only">
+                                            {{ installment_form.state.label }}
+                                            </label>
+                                            {% if installment_form.state.errors %}
+                                                <div class="text-danger" role="alert">{{ installment_form.state.errors.as_text }}</div>
+                                            {% endif %}
+                                            {{ installment_form.state }}
+                                        </div> <!-- /State field -->
+
+                                        <!-- City field -->
+                                        <div class="form-group {% if installment_form.city.errors %}has-error{% endif %}">
+                                            <label for="{{ installment_form.city.id_for_label }}"
+                                                   class="sr-only">
+                                                {{ installment_form.city.label }}
+                                            </label>
+                                            {% if installment_form.city.errors %}
+                                                <div class="text-danger" role="alert">{{ installment_form.city.errors.as_text }}</div>
+                                            {% endif %}
+                                            {{ installment_form.city }}
+                                        </div> <!-- /City field -->
+
+                                        <!-- Birthday field -->
+                                        <div class="form-group {% if income_form.birthday.errors %}has-error{% endif %}">
+                                            <label for="{{ income_form.birthday.id_for_label }}"
+                                                   class="sr-only">
+                                                {{ income_form.birthday.label }}
+                                            </label>
+                                            {% if income_form.birthday.errors %}
+                                                <div class="text-danger" role="alert">{{ income_form.birthday.errors.as_text }}</div>
+                                            {% endif %}
+                                            {{ income_form.birthday }}
+                                        </div> <!-- /Birthday field -->
+
+                                        <!-- Installment field -->
+                                        <div class="form-group {% if installment_form.installment.errors %}has-error{% endif %}">
+                                            <label for="{{ installment_form.installment.id_for_label }}"
+                                                   class="sr-only">
+                                                {{ installment_form.installment.label }}
+                                            </label>
+                                            {% if installment_form.installment.errors %}
+                                                <div class="text-danger" role="alert">{{ installment_form.installment.errors.as_text }}</div>
+                                            {% endif %}
+                                            {{ installment_form.installment }}
+                                        </div> <!-- /installment field -->
+
+                                        <!-- Dependents field -->
+                                        <div class="form-check {% if installment_form.dependents.errors %}has-error{% endif %}">
+                                            {% if installment_form.dependents.errors %}
+                                                <div class="text-danger" role="alert">{{ installment_form.dependents.errors.as_text }}</div>
+                                            {% endif %}
+                                            {{ installment_form.dependents }}
+                                            <label for="{{ installment_form.dependents.id_for_label }}"
+                                                    class="form-check-label">
+                                                {{ installment_form.dependents.label }}
+                                            </label>
+                                        </div> <!-- /Dependents field -->
+
+                                        <button type="submit" class="btn btn-default">Calcular</button>
+                                    </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    {% if simulator %}
+                    <div id="calc" class="Sidebar-resultado sidebar-calculo-border">
+
+                        <ul class="nav nav-tabs">
+                            <li role="presentation" class="active">
+                                <a href="#price"
+                                   id="price-tab"
+                                   aria-controls="price"
+                                   role="tab"
+                                   data-toggle="tab">PRICE</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#sac"
+                                   id="sac-tab"
+                                   aria-controls="sac"
+                                   role="tab"
+                                   data-toggle="tab">SAC</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" style="margin-top: 1em;">
+                            <div role="tabpanel" class="tab-pane active" id="price">
+                                {% if installment %}
+                                <p>Para uma prestação de <strong>{{ searched|money_format }}</strong>, você precisa de uma renda
+                                de <strong>{{ installment.price|money_format }}</strong></p>
+                                {% endif %}
+
+                                <div class="box">
+
+                                    <p>Subsídio</p>
+                                    <span>{{ simulator.subsidy|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Valor financiável</p>
+                                    <span>{{ simulator.price.funding|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Quantidade</p>
+                                    <span>{{ simulator.payments }} parcelas</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>1º parcela</p>
+                                    <span>{{ simulator.price.first_payment|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Última parcela</p>
+                                    <span class="zero">{{ simulator.price.last_payment|money_format }}</span>
+
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="sac">
+                                {% if installment %}
+                                <p>Para uma prestação de <strong>{{ searched|money_format }}</strong>, você precisa de uma renda
+                                de <strong>{{ installment.price|money_format }}</strong></p>
+                                {% endif %}
+
+                                <div class="box">
+
+                                    <p>Subsídio</p>
+                                    <span>{{ simulator.subsidy|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Valor financiável</p>
+                                    <span>{{ simulator.sac.funding|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Quantidade</p>
+                                    <span>{{ simulator.payments }} parcelas</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>1º parcela</p>
+                                    <span>{{ simulator.sac.first_payment|money_format }}</span>
+
+                                </div>
+
+                                <div class="box">
+
+                                    <p>Última parcela</p>
+                                    <span class="zero">{{ simulator.sac.last_payment|money_format }}</span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endif %}
+                    <!-- /Calculo por renda -->
+
+                </li> <!-- /income search -->
+
+                {% ad_state as ad_state %}
+                {% if ad_state %}
+                <div class="sidebar-ad">
+                    <a href="{{ ad_state.banner.url }}" target="_blank" title="{{ ad_state.title }}">
+                        <img src="{{ ad_state.banner.image.url }}" alt="{{ ad_state.banner.title }}" />
+                    </a>
+                </div>
+                {% endif %}
+
+                <li>
+
+                <!-- Busca Avançada  -->
+                    <div id="Sidebar-buscaA">
+
+                    <div class="titulo">
+                        <p>Busca avançada</p>
+                    </div>
+
+                    <div id="Sidebar-procurar">
+                        <form id="advanced_form" method="get" action="{% url 'realty:advanced_search' user_state %}">
+                            {{ advanced_form.non_field_errors }}
+
+                            <!-- keyword field -->
+                            <div class="form-group {% if advanced_form.keyword.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.keyword.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.keyword.label }}
+                                </label>
+                                {% if advanced_form.keyword.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.keyword.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.keyword }}
+                            </div> <!-- /keyword field -->
+
+                            <!-- min_value field -->
+                            <div class="form-group {% if advanced_form.min_value.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.min_value.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.min_value.label }}
+                                </label>
+                                {% if advanced_form.min_value.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.min_value.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.min_value }}
+                            </div> <!-- /min_value field -->
+
+                            <!-- max_value field -->
+                            <div class="form-group {% if advanced_form.max_value.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.max_value.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.max_value.label }}
+                                </label>
+                                {% if advanced_form.max_value.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.max_value.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.max_value }}
+                            </div> <!-- /max_value field -->
+
+                            <!-- State field -->
+                            <div class="form-group {% if advanced_form.state.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.state.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.state.label }}
+                                </label>
+                                {% if advanced_form.state.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.state.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.state }}
+                            </div> <!-- /State field -->
+
+                            <!-- City field -->
+                            <div class="form-group {% if advanced_form.city.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.city.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.city.label }}
+                                </label>
+                                {% if advanced_form.city.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.city.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.city }}
+                            </div> <!-- /City field -->
+
+                            <!-- type field -->
+                            <div class="form-group {% if advanced_form.type.errors %}has-error{% endif %}">
+                                <label for="{{ advanced_form.type.id_for_label }}"
+                                       class="sr-only">
+                                    {{ advanced_form.type.label }}
+                                </label>
+                                {% if advanced_form.type.errors %}
+                                    <div class="text-danger" role="alert">{{ advanced_form.type.errors.as_text }}</div>
+                                {% endif %}
+                                {{ advanced_form.type }}
+                            </div> <!-- /type field -->
+
+                            <button type="submit" class="btn btn-default">Buscar</button>
+                        </form>
+
+                      </div>
+
+                    </div>
+                </li> <!-- /Advanced form -->
+
+                {% ad_city as ad_city %}
+                {% if ad_city %}
+                <div class="sidebar-ad">
+                    <a href="{{ ad_city.banner.url }}" target="_blank" title="{{ ad_city.title }}">
+                        <img src="{{ ad_city.banner.image.url }}" alt="{{ ad_city.banner.title }}" />
+                    </a>
+                </div>
+                {% endif %}
+
+              </ul>
+            </div> <!-- /search -->
+        {% endif %}
+
+        <div class="col-md-{% if not sidebar_disabled %}{% block content_size %}9{% endblock %}{% else %}12{% endif %}"> <!-- content -->
+
+            {% if not breadcrumbs_disabled %}
+            <!-- BreadCrumb -->
+            <div id="Resultado_Breadcrumb">
+
+                <div class="box">
+
+                    <ul id="tab_navigation">
+
+                        <li id="realty"><a href="{% url 'realty:list' user_state %}">Imóveis - {{ user_state|upper }}</a></li>
+                        <li class="seta">|</li>
+                        <li id="catalog_imobiliarias"><a href="{% url 'catalog:imobiliaria' %}">Imobiliárias</a></li>
+                        <li class="seta">|</li>
+                        <li id="catalog_correspondentes"><a href="{% url 'catalog:correspondente' %}">Correspondentes
+                        Bancários</a></li>
+                        <li class="seta">|</li>
+                        <li id="catalog_incorporadoras"><a href="{% url 'catalog:incorporadora' %}">Incorporadoras</a></li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+            {% endif %}
+
+            {% ad_national as ad_national %}
+            {% if ad_national %}
+            <div id="banner-above-content">
+                <a href="{{ ad_national.banner.url }}" target="_blank" title="{{ ad_national.title }}">
+                  <img src="{{ ad_national.banner.image.url }}" alt="{{ ad_national.banner.title }}" />
+                </a>
+            </div>
+            {% endif %}
+
+          {% block content %}
+
+          {% endblock content %}
+
+        </div> <!-- /content -->
+
+        {% block right_sidebar %}{% endblock %}
+
+      </div> <!-- /row -->
+
+
+
+    <footer class="footer">
+        <div class="row">
+            <div class="col-md-5">
+                <p>Copyright &copy; 2015-{% now "Y" %} ImóveisFinanciados.com All rights reserved</p>
+            </div>
+            <div class="col-md-3 col-md-offset-2">
+                <p class="text-right"><a href="{% url 'privacy_policy' %}" title="Política de Privacidade">Política de Privacidade</a></p>
+            </div>
+            <div class="col-md-2">
+                <p class="text-left"><a href="{% url 'contact_us' %}" title="Fale conosco">Fale conosco</a></p>
+            </div>
+            <!--
+            <div class="col-md-2">
+                <p class="text-right">Desenvolvido por <a href="https://github.com/brunobbbs">Bruno Barbosa</a></p>
+            </div>
+            -->
+        </div>
+    </footer>
+
+    </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'js/jquery-2.1.1.js' %}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'js/assets/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <!-- csrftoken -->
+    <script type="text/javascript" src="{% static 'js/cookie.js' %}"></script>
+
+    <!-- spin -->
+    <script type="text/javascript" src="{% static 'js/spin.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.spin.js' %}"></script>
+
+    <!-- jQuery masks -->
+    <script type="text/javascript" src="{% static 'js/jquery.mask.js' %}"></script>
+
+    <!-- Utils -->
+    <script type="text/javascript" src="{% static 'js/geturlparams.js' %}"></script>
+
+    <!-- Income search on simulator app -->
+    <script src="{% static 'js/updatecities.js' %}"></script>
+    <script src="{% static 'js/searchforms.js' %}"></script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-86847861-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    {% block js %}
+
+    {% endblock js %}
+  </body>
+</html>
