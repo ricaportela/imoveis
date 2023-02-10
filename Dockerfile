@@ -7,9 +7,6 @@ COPY /app/requirements.txt .
 COPY ./app /app
 WORKDIR /app
 
-RUN python -m venv .venv
-RUN chmod +x .venv/bin/activate
-RUN . .venv/bin/activate
 RUN pip install --upgrade pip 
 RUN pip install -r requirements.txt
 
