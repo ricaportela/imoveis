@@ -1,0 +1,16 @@
+.form-group {
+    margin-bottom: 5px;
+}
+
+.labels-left .control-label {
+    text-align: left;
+}
+
+#wrapper {
+    width: 960px;
+    margin: 0 auto 20px;
+}
+
+.dashboard-topo {
+    margin-bottom: 0 !important;
+}

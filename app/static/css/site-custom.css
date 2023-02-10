@@ -1,0 +1,27 @@
+#banner-above-content {
+    clear: both;
+    border: 1px dotted #ccc;
+    margin-bottom: 1em;
+}
+
+.topo-ad {
+  background: rgb(236, 236, 236);
+  height: 77px;
+  margin: 0 auto 20px;
+  padding: 5px 10px;
+  width: 960px;
+}
+
+.sidebar-ad {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.sidebar-ad img {
+    width: 100%;
+    border: 1px dotted #ccc;
+}
+
+.realty-top-filter {
+  margin-bottom: 0;
+}

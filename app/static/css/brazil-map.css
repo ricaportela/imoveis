@@ -1,0 +1,99 @@
+ul#map {display: block; margin: 0; padding: 0; width: 582px; height: 585px; background-image: url('../img/map.gif');}
+			ul#map li {display: block; padding: 0; position: absolute;}
+			li#crs {margin-top: 485px; margin-left: 237px; }
+			li#csc {margin-top: 467px; margin-left: 292px;}
+			li#cpr {margin-top: 416px; margin-left: 281px;}
+			li#csp {margin-top: 375px; margin-left: 303px; z-index:9999; }
+			li#cms {margin-top: 336px; margin-left: 229px;}
+			li#crj {margin-top: 389px; margin-left: 422px; z-index:9999; }
+			li#ces {margin-top: 347px; margin-left: 467px; z-index:9999; }
+			li#cmg {margin-top: 292px; margin-left: 333px; z-index:9998; }
+			li#cgo {margin-top: 270px; margin-left: 301px; z-index:9999;  }
+			li#cdf {margin-top: 302px; margin-left: 367px; z-index:9999; }
+			li#cba {margin-top: 207px; margin-left: 397px;  }
+			li#cmt {margin-top: 189px; margin-left: 180px;}
+			li#cro {margin-top: 199px; margin-left: 104px; z-index:9998; }
+			li#cac {margin-top: 185px; margin-left: 0px; z-index:9998;}
+			li#cam {margin-top: 46px; margin-left: 3px;}
+			li#crr {margin-top: 0; 	  margin-left: 133px; }
+			li#cpa {margin-top: 40px; margin-left: 219px;}
+			li#cap {margin-top: 13px; margin-left: 278px;}
+			li#cma {margin-top: 94px; margin-left: 367px; z-index:9999;}
+			li#cto {margin-top: 156px; margin-left: 338px;}
+			li#cse {margin-top: 221px; margin-left: 517px;}
+			li#cal {margin-top: 208px; margin-left: 518px; z-index:9999;}
+			li#cpe {margin-top: 188px; margin-left: 473px;}
+			li#cpb {margin-top: 169px; margin-left: 511px; z-index:9999;}
+			li#crn {margin-top: 145px; margin-left: 514px;}
+			li#cce {margin-top: 121px; margin-left: 473px;}
+			li#cpi {margin-top: 120px; margin-left: 406px; z-index:9997;}
+
+			ul#map li a {display: block; text-decoration: none; position: absolute; }
+			a#rs {width: 118px; height: 101px; }
+			a#sc {width: 83px; height: 54px;  }
+			a#pr {width: 97px; height: 61px;  }
+			a#sp {width: 133px; height: 85px;  }
+			a#ms {width: 109px; height: 107px; }
+			a#rj {width: 60px; height: 47px;  }
+			a#es {width: 43px; height: 55px;  }
+			a#mg {width: 164px; height: 132px; }
+			a#go {width: 109px; height: 98px; }
+			a#df {width: 26px; height: 26px;    }
+			a#ba {width: 137px; height: 149px; }
+			a#mt {width: 169px; height: 163px }
+			a#ro {width: 103px; height: 88px;  }
+			a#ac {width: 109px; height: 63px  }
+			a#am {width: 256px; height: 184px; }
+			a#rr {width: 88px; height: 103px; }
+			a#pa {width: 189px; height: 189px; }
+			a#ap {width: 76px; height: 87px;  }
+			a#ma {width: 95px; height: 119px; }
+			a#to {width: 78px; height: 138px; }
+			a#se {width: 31px; height: 39px;  }
+			a#al {width: 48px; height: 30px;  }
+			a#pe {width: 97px; height: 36px; }
+			a#pb {width: 73px; height: 23px;  }
+			a#rn {width: 56px; height: 39px;  }
+			a#ce {width: 65px; height: 78px;  }
+			a#pi {width: 84px; height: 126px; }
+
+			a#pa:hover, a#pa:active, a#am:hover, a#am:active, a#mt:hover, a#mt:active, a#ba:hover, a#ba:active, a#ma:hover, a#ma:active,
+			a#mg:hover, a#mg:active, a#to:hover, a#to:active, a#pi:hover, a#pi:active, a#go:hover, a#go:active, a#ms:hover, a#ms:active,
+			a#rr:hover, a#rr:active, a#rs:hover, a#rs:active, a#ro:hover, a#ro:active, a#ap:hover, a#ap:active, a#sp:hover, a#sp:active,
+			a#ce:hover, a#ce:active, a#pr:hover, a#pr:active, a#ac:hover, a#ac:active, a#sc:hover, a#sc:active, a#es:hover, a#es:active,
+			a#rj:hover, a#rj:active, a#pb:hover, a#pb:active, a#pe:hover, a#pe:active, a#rn:hover, a#rn:active, a#se:hover, a#se:active,
+			a#al:hover, a#al:active, a#df:hover, a#df:active
+
+			{ display: block; background: url('../img/sprite.png') no-repeat; }
+
+			a#pa:hover, a#pa:active { background-position: -2px -185px; width: 189px; height: 189px; }
+			a#am:hover, a#am:active { background-position:  -2px -1px; width: 256px; height: 184px; }
+			a#mt:hover, a#mt:active { background-position: -3px -375px; width: 168px; height: 163px }
+			a#ba:hover, a#ba:active { background-position: -1px -672px; width: 137px; height: 149px; }
+			a#ma:hover, a#ma:active { background-position: -103px -1030px; width: 96px; height: 139px;  }
+			a#mg:hover, a#mg:active { background-position:  -2px -539px; width: 164px; height: 132px; }
+			a#to:hover, a#to:active { background-position: -87px -1174px; width: 75px; height: 128px; }
+			a#pi:hover, a#pi:active { background-position: -172px -376px; width: 84px; height: 126px; }
+			a#go:hover, a#go:active { background-position: -2px -909px; width: 109px; height: 98px; }
+			a#ms:hover, a#ms:active { background-position: -111px -925px; width: 109px; height: 107px; }
+			a#rr:hover, a#rr:active { background-position:  -165px -539px; width: 88px; height: 103px; }
+			a#rs:hover, a#rs:active { background-position: -136px -823px; width: 118px; height: 101px; }
+			a#ro:hover, a#ro:active { background-position:  0px -1014px; width: 103px; height: 88px;}
+			a#ap:hover, a#ap:active { background-position: -166px -1172px; width: 76px; height: 87px; }
+			a#sp:hover, a#sp:active { background-position: -3px -822px;    width: 133px; height: 85px; }
+			a#ce:hover, a#ce:active { background-position: -193px -185px; width: 65px; height: 78px; }
+			a#pr:hover, a#pr:active { background-position: -2px -1101px; width: 97px; height: 61px; }
+			a#ac:hover, a#ac:active { background-position: -140px -672px; width: 110px; height: 63px; }
+			a#sc:hover, a#sc:active { background-position:  -4px -1165px; width: 83px; height: 54px; }
+			a#es:hover, a#es:active { background-position: -207px -1033px; width: 43px; height: 55px; }
+			a#rj:hover, a#rj:active { background-position: -192px -265px; width: 60px; height: 47px; }
+			a#pb:hover, a#pb:active { background-position: -172px -502px; width: 73px; height: 36px; }
+			a#pe:hover, a#pe:active { background-position: -139px -737px; width: 97px; height: 36px; }
+			a#rn:hover, a#rn:active { background-position: -193px -311px; width: 56px; height: 39px; }
+			a#se:hover, a#se:active { background-position: -188px -773px; width: 31px; height: 39px; }
+			a#al:hover, a#al:active { background-position: -140px -772px; width: 48px; height: 30px; }
+			a#df:hover, a#df:active { background-position: -166px -642px; width: 26px; height: 26px; }
+
+			/* Fim sprite */
+
+			ul#map li a img {border: 0; width: inherit; height: inherit;}

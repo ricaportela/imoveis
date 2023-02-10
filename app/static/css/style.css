@@ -1,0 +1,745 @@
+@charset "utf-8";
+/* CSS Document */
+body { margin: 0; font-family: arial; }
+
+#container {
+	width: 960px;
+}
+
+
+
+#Busca {
+	margin: 69px auto 0;
+	min-height: 50px;
+	width: 960px;
+}
+
+
+
+/* SIDEBAR */
+#Sidebar {
+	float: left;
+	margin: 0 20px 0 0;
+	min-height: 50px;
+	width: 212px;
+}
+
+.sidebar-calculo-border {
+	border: 1px solid rgb(204, 204, 204);
+	border-radius: 3px;
+	float: left;
+	margin: 0 0 30px;
+	width: 100%;
+}
+#Sidebar-calculo .titulo {
+	background: rgb(239, 239, 238);
+	padding: 10px;
+}
+#Sidebar-calculo .titulo p {
+	color: rgb(51, 51, 51);
+	font-size:14px;
+	font-weight: bold;
+	line-height: 1em;
+	text-align: left;
+	width: 192px;
+	margin: 0;
+}
+
+.Sidebar-formulario, #Sidebar-formulario-prestacao {
+	float: left;
+	min-height: 50px;
+	padding: 10px;
+	width: 100%;
+}
+.Sidebar-formulario select, #Sidebar-formulario-prestacao select {
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 2px;
+	color: rgb(51, 51, 51);
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 15px;
+	padding: 8px 10px;
+	text-align: left;
+	width: 193px;
+}
+.Sidebar-formulario input[type="text"], #Sidebar-formulario-prestacao input[type="text"] {
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 2px;
+	color: rgb(51, 51, 51);
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 15px;
+	padding: 8px 10px;
+	text-align: left;
+	width: 192px;
+}
+
+.Sidebar-resultado {
+	border-bottom: 1px solid rgb(204, 204, 204);
+	border-top: 0 !important;
+	clear: both;
+	float: left;
+	padding: 15px 20px;
+	width: 100%;
+}
+.Sidebar-resultado .box {
+
+}
+.Sidebar-resultado .box p {
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 0 5px;
+	text-align: left;
+}
+.Sidebar-resultado .box span {
+	clear: both;
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 20px;
+	text-align: left;
+	width: 100%;
+}
+.Sidebar-resultado .box .zero {
+	margin: 0;
+}
+
+#Sidebar-buscar {
+	background: rgb(239, 239, 239);
+	clear: both;
+	float: left;
+	padding: 10px;
+	width: 192px;
+}
+#Sidebar-buscar input[type="submit"] {
+	background: rgb(51, 51, 51);
+	border-radius: 4px;
+	border: solid 1px;
+	color: rgb(255, 255, 255);
+	float: left;
+	font-size: 13px;
+	line-height: 1em;
+	padding: 11px 20px;
+	text-align: center;
+}
+
+#Sidebar-buscaA {
+	border: 1px solid rgb(204, 204, 204);
+	border-radius: 3px;
+	float: left;
+	margin: 0 0 30px;
+	width: 100%;
+}
+#Sidebar-buscaA .titulo {
+	background: rgb(239, 239, 238);
+	padding: 10px;
+}
+#Sidebar-buscaA .titulo p {
+	color: rgb(51, 51, 51);
+	font-size:14px;
+	font-weight: bold;
+	line-height: 1em;
+	text-align: left;
+	width: 192px;
+	margin: 0;
+}
+
+#Sidebar-procurar {
+	float: left;
+	padding: 10px;
+	width: 171px;
+}
+#Sidebar-procurar select {
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 2px;
+	color: rgb(51, 51, 51);
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 15px;
+	padding: 8px 10px;
+	text-align: left;
+	width: 193px;
+}
+#Sidebar-procurar input[type="text"] {
+	border: 1px solid rgb(210, 210, 210);
+	border-radius: 2px;
+	color: rgb(51, 51, 51);
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 15px;
+	padding: 8px 10px;
+	text-align: left;
+	width: 192px;
+}
+#Sidebar-procurar .zero {
+	margin: 0;
+}
+
+/* BUSCA
+---------------------------------------------------------------------------------------- */
+#Resultado {
+	float: left;
+	height: 966.5px;
+	width: 728px;
+}
+
+/* Breadcrumb */
+#Resultado_Breadcrumb {
+	float: left;
+	height: 35px;
+	margin: 0 0 15px;
+	width: 100%;
+}
+#Resultado_Breadcrumb .box {
+	float: left;
+	width: 100%;
+}
+#Resultado_Breadcrumb .box ul {
+	float: left;
+	height: 30px;
+	margin: 0 0 -1px 0;
+	padding: 0;
+	width: 100%;
+}
+#Resultado_Breadcrumb .box ul li {
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(204, 204, 204);
+	border-radius: 3px 3px 0 0;
+	float: left;
+	height: 30px;
+	text-align: left;
+	list-style: none;
+}
+#Resultado_Breadcrumb .box ul li a {
+	color: rgb(51, 136, 187);
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 30px;
+	padding: 0 10px;
+	text-decoration: none;
+	display: block;
+}
+#Resultado_Breadcrumb .box ul li a:hover {
+	text-decoration: underline;
+}
+#Resultado_Breadcrumb .box ul li.seta {
+	color: #999;
+	font-size: 12px;
+	line-height: 30px;
+	padding: 0 5px;
+	text-decoration: none;
+	display: block;
+	border: 0;
+}
+#Resultado_Breadcrumb .box ul li.ativo {
+	background: rgb(255, 244, 166);
+	color: rgb(51, 51, 51);
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 30px;
+	padding: 0 10px;
+	text-decoration: none;
+	display: block;
+}
+
+
+/* Lista */
+#Resultado_Lista {
+	clear: both;
+	float: left;
+	min-height: 50px;
+	width: 100%;
+}
+#Resultado_Lista ul {
+	float: left;
+	min-height: 50px;
+	width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+#Resultado_Lista ul li {
+	border: 1px solid rgb(204, 204, 204);
+	float: left;
+	margin: 0 0 10px;
+	min-height: 50px;
+	width: 100%;
+}
+#Resultado_Lista ul li:hover {
+	background: rgb(227, 237, 246);
+}
+#Resultado_Lista ul li a {
+	display: block;
+}
+
+#Resultado_Lista .foto {
+	float: left;
+	height: 102px;
+	min-height: 50px;
+	width: 150px;
+}
+#Resultado_Lista .foto .lines {
+	background: url("../images/albuns.png") 100% 50% no-repeat;
+	float: left;
+	height: 102px;
+	min-height: 50px;
+	width: 142px;
+}
+#Resultado_Lista .foto .lines .box{
+	background: rgb(255, 255, 255);
+	border-right: 1px solid rgb(204, 204, 204);
+	float: left;
+	height: 102px;
+	min-height: 50px;
+	width: 136px;
+}
+
+#Resultado_Lista .dados {
+	float: left;
+	height: 82px;
+	min-height: 50px;
+	padding: 10px 10px 10px 0;
+	width: 372px;
+
+}
+#Resultado_Lista .dados .dadosbox {
+	float: left;
+	height: 32px;
+	margin: 0 0 5px;
+	width: 100%;
+}
+#Resultado_Lista .dados .dadosbox h3 {
+	color: rgb(51, 136, 187);
+	float: left;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 1.1em;
+	text-align: left;
+	width: 78%;
+	margin: 0;
+}
+#Resultado_Lista .dados .dadosbox p {
+	float: left;
+	font-size: 11px;
+	line-height: 1.4em;
+	text-align: left;
+	text-decoration: none;
+	color: rgb(0,0,0);
+	width: 78%;
+}
+/*
+#Resultado_Lista .valores {
+	float: left;
+	height: 92px;
+	min-height: 50px;
+	padding: 10px 10px 0 0;
+	width: 105px;
+}
+*/
+#Resultado_Lista .valores {
+	padding: 10px 10px 0 0;
+}
+#Resultado_Lista .valores .preco {
+	float: left;
+	height: 40px;
+	width: 100%;
+}
+#Resultado_Lista .valores .preco p {
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 1em;
+	/*text-align: left;*/
+	width: 100%;
+	margin: 0;
+}
+#Resultado_Lista .valores .entrada  p.tit {
+	color: rgba(0,0,0,1.00);
+	float: left;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 0 3px 0;
+	text-align: left;
+	width: 100%;
+}
+#Resultado_Lista .valores .entrada  p.val {
+	color: rgba(0,0,0,1.00);
+	clear: both;
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	text-align: left;
+	width: 100%;
+	margin:0;
+}
+/*
+#Resultado_Lista .data {
+	float: left;
+	height: 82px;
+	min-height: 50px;
+	padding: 10px 10px 0 0;
+	width: 60px;
+	color: #000000;
+}
+*/
+#Resultado_Lista .data {
+	color: #000000;
+	padding: 10px 10px 0 0;
+}
+#Resultado_Lista .data p.dia {
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	margin: 0 0 5px 0;
+	text-align: left;
+	width: 100%;
+}
+#Resultado_Lista .data p.hor {
+	clear: both;
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	text-align: left;
+	width: 100%;
+	margin: 0;
+
+}
+
+
+
+/* IMOVEL
+---------------------------------------------------------------------------------------- */
+
+#Imovel {
+	margin: 0 auto;
+	min-height: 50px;
+	width: 960px;
+}
+
+/* IMOVEL > BREADCRUM */
+#Imovel_breadcrumb {
+	float: left;
+	margin: 0 0 20px;
+	width: 100%;
+}
+#Imovel_breadcrumb ul {
+	float: left;
+	width: 100%;
+	padding: 0;
+	list-style: none;
+}
+#Imovel_breadcrumb ul li {
+	color: #333;
+	height: 25px;
+	margin: 0 5px 0 0;
+	line-height: 25px;
+	height: 25px;
+	float: left;
+	font-size: 12px;
+}
+#Imovel_breadcrumb ul li a {
+	color: rgb(51, 136, 187);
+	font-size: 12px;
+	text-align: left;
+	line-height: 25px;
+	height: 25px;
+	text-decoration: none;
+}
+#Imovel_breadcrumb ul li a:hover {
+	text-decoration: underline;
+}
+
+
+/* IMOVEL > TITULO */
+#Imovel_titulo {
+	float: left;
+	margin: 0 0 20px;
+	min-height: 50px;
+	width: 103%;
+}
+
+#Imovel_titulo .titulo {
+	float: left;
+	margin: 0 20px 0 0;
+	min-height: 50px;
+	width: 400px;
+}
+#Imovel_titulo .titulo h1 {
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 28px;
+	font-weight: bold;
+	line-height: 1.084em;
+	text-align: left;
+	margin: 0 0 5px 0;
+}
+#Imovel_titulo .titulo p.data {
+	color: rgb(153, 153, 153);
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	text-align: left;
+	width: 100%;
+	margin: 0;
+}
+
+#Imovel_titulo .preco {
+	float: left;
+	height: 55px;
+	width: 290px;
+}
+#Imovel_titulo .preco .seta{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    /* margin-right: 10px; */
+    width: 0;
+    height: 0;
+    border-top: 27px solid transparent;
+    border-bottom: 28px solid transparent;
+    border-right: 15px solid rgb(102, 34, 136);
+}
+#Imovel_titulo .preco .box-preco {
+	background: rgb(102, 34, 136);
+	float: right;
+	height: 55px;
+	width: 275px;
+}
+#Imovel_titulo .preco .box-preco span{
+	color: rgb(255, 255, 255);
+	float: left;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 55px;
+	margin: 0 0 0 20px;
+	text-align: left;
+}
+
+
+/* IMOVEL > IMOVEIS  */
+
+.realty-details dt {
+	margin-top: 1em;
+}
+
+#realty-description {
+	margin-top: 1em;
+}
+
+#Imovel_conteudo {
+	background-color:red;
+}
+
+#Imovel-informacoes {
+
+}
+
+#Imovel-informacoes #galeria{
+	background: rgb(239, 239, 238);
+	float: left;
+	height: 458px;
+	margin: 0 20px 0 0;
+	padding: 0 15px;
+	width: 388px;
+	text-align: center;
+}
+
+#Imovel-informacoes #dados {
+	float: left;
+	min-height: 50px;
+	width: 290px;
+}
+#Imovel-informacoes #dados .dados-imovel {
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 3px;
+    float: left;
+    margin: 0 0 30px;
+    width: 100%;
+}
+#Imovel-informacoes #dados .dados-imovel .titulo {
+    background: rgb(239, 239, 238);
+    padding: 10px;
+}
+#Imovel-informacoes #dados .dados-imovel .titulo p {
+    color: rgb(51, 51, 51);
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1em;
+    text-align: left;
+    width: 192px;
+    margin: 0;
+}
+#Imovel-informacoes #dados .dados-imovel .local {
+	border-bottom: 1px solid rgb(204, 204, 204);
+	border-top: 1px solid rgb(204, 204, 204);
+	clear: both;
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 1em;
+	line-height: 1em;
+	padding: 10px 20px;
+	text-align: left;
+	width: 250px;
+}
+
+#Imovel-informacoes #dados .dados-imovel .informacoes {
+	clear: both;
+	float: left;
+	padding: 20px 10px 0 20px;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-imovel .informacoes ul {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin:0;
+	list-style: none;
+}
+#Imovel-informacoes #dados .dados-imovel .informacoes ul li {
+	float: left;
+	margin: 0 10px 20px 0;
+	width: 124px;
+}
+#Imovel-informacoes #dados .dados-imovel .informacoes ul li p {
+	float: left;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0 0 5px;
+	text-align: left;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-imovel .informacoes ul li span {
+	clear: both;
+	float: left;
+	font-size: 12px;
+	text-align: left;
+	width: 100%;
+}
+
+#Imovel-informacoes #dados .dados-contato {
+	background: rgb(255, 244, 166);
+	border: 1px solid rgb(210, 202, 142);
+	border-radius: 3px;
+	clear: both;
+	float: left;
+	min-height: 50px;
+	padding: 15px;
+	width: 290px;
+}
+
+#Imovel-informacoes #dados .dados-contato .usuario {
+	background: url("../images/user-anuncio.png") no-repeat;
+	float: left;
+	height: 20px;
+	margin: 0 0 10px;
+	padding: 0 0 0 28px;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-contato .formulario {
+	float: left;
+	margin: 0 0 10px;
+	min-height: 50px;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-contato .formulario .campo {
+	float: left;
+	margin: 0 0 10px;
+}
+#Imovel-informacoes #dados .dados-contato .formulario .campo input[type="text"] {
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(204, 204, 204);
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 14px;
+	line-height: 1em;
+	padding: 7px 10px;
+	text-align: left;
+	width: 255px;
+}
+#Imovel-informacoes #dados .dados-contato .formulario .campo textarea {
+	background: rgb(255, 255, 255);
+	border: 1px solid rgb(204, 204, 204);
+	color: rgb(51, 51, 51);
+	float: left;
+	font-size: 14px;
+	font-family: arial;
+	line-height: 1em;
+	padding: 7px 10px;
+	text-align: left;
+	width: 255px;
+	height: 100px;
+}
+#Imovel-informacoes #dados .dados-contato .formulario .campo .erro {
+	background: url("../images/error.png") no-repeat;
+	clear: both;
+	color: rgb(204, 0, 0);
+	float: left;
+	font-size: 12px;
+	line-height: 1em;
+	margin: 5px 0;
+	padding: 0 0 0 15px;
+	text-align: left;
+	width: 100%;
+}
+
+#Imovel-informacoes #dados .dados-contato .copia {
+	float: left;
+	margin: 0 0 10px;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-contato .copia label {
+	display: block;
+	float: left;
+	min-height: auto;
+	text-align: left;
+}
+#Imovel-informacoes #dados .dados-contato .copia label input[type="checkbox"] {
+
+}
+#Imovel-informacoes #dados .dados-contato .copia label .texto {
+	color: rgb(51, 51, 51);
+	display: inline-block;
+	font-size: 14px;
+	line-height: 1em;
+	margin: 0 ;
+	text-align: left;
+}
+
+#Imovel-informacoes #dados .dados-contato .botao{
+	clear: both;
+	float: left;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-contato .botao input[type="submit"] {
+	background: url("../images/mensagem.png") 15% 46% no-repeat, rgb(255, 119, 0);
+	border-radius: 2px;
+	border: 0;
+	color: rgb(255, 255, 255);
+	float: left;
+	font-size: 18px;
+	font-weight: bold;
+
+	line-height: 45px;
+	padding: 0 20px 0 50px;
+	text-align: center;
+	width: 100%;
+}
+#Imovel-informacoes #dados .dados-contato .botao input[type="submit"]:hover{
+	background: url("../images/mensagem.png") 15% 46% no-repeat, rgb(238, 102, 0);
+}
+
+.catalog-buttons {
+	position: relative;
+	bottom: 5px;
+	margin-right: 5px;
+}
+
+#Resultado_Lista .city-list {
+    padding-left: 1em;
+}
