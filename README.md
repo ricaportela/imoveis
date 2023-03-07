@@ -4,7 +4,6 @@ Dockerfile
 O Dockerfile deve incluir as seguintes linhas:
 ```Dockerfile
 Dockerfile
-Copy code
 FROM postgres
 
 ENV POSTGRES_PASSWORD postgres
@@ -29,13 +28,13 @@ Remover o banco de dados existente
 ```sql
 sql
 Copy code
-drop database imoveis_financiados_db;
+drop database imoveis_financiados;
 ```
 Criar um novo banco de dados vazio
 ```sql
 sql
 Copy code
-create database imoveis_financiados_db;
+create database imoveis_financiados;
 ```
 Criar um novo usuário
 ```sql
