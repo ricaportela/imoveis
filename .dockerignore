@@ -6,10 +6,10 @@
 .docker
 
 # Python
-prj-imoveis/__pycache__/
-prj-imoveis/*/__pycache__/
-prj-imoveis/*/*/__pycache__/
-prj-imoveis/*/*/*/__pycache__/
+imoveisfinanciados/__pycache__/
+imoveisfinanciados/*/__pycache__/
+imoveisfinanciados/*/*/__pycache__/
+imoveisfinanciados/*/*/*/__pycache__/
 .env/
 .venv/
 venv/
