@@ -16,7 +16,7 @@ RUN set -ex \
  && psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE imoveis_financiados_db TO imoveisfinanciados" \
  && pg_restore -U postgres -d imoveis_financiados_db /var/lib/postgresql/backup/imoveis.tar
 ```
-Instruções
+### Instruções
 Para executar as instruções abaixo, é necessário entrar no prompt do PostgreSQL. Isso pode ser feito com o seguinte comando:
 ```bash
 sudo su - postgres
