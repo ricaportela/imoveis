@@ -69,9 +69,9 @@ pg_restore -h localhost -p 5432 -d "imoveis_financiados" -U imoveisfinanciados -
 ```
 Criar imagem Docker
 ```bash
-docker commit imoveis_financiados imoveis_docker
+docker commit imoveis_financiados
 ```
 Executar imagem Docker
 ```bash
-docker run -it imoveis_docker
+docker run -it imoveis_financiados
 ```
