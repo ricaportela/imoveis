@@ -55,7 +55,7 @@ urlpatterns = [
         "meus-imoveis/",
         include("imoveisfinanciados.realty.user_urls", namespace="myrealties"),
     ),
-    path("", HomePageView.as_view(), name="index"),
+    re_path("^$", HomePageView.as_view(), name="index"),
 ]
 
 
